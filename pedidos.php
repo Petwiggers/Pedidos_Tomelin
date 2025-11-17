@@ -53,6 +53,7 @@ catch(PDOException $e) {
     <title>Cadastro de Pedidos</title>
     <!-- Link para o CSS do Bootstrap via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script defer src="JS/pedidos.js"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -74,29 +75,15 @@ catch(PDOException $e) {
     <!-- Exibe a mensagem de sucesso ou erro -->
     <?php if (!empty($mensagem)) echo $mensagem; ?>
 
-    <form action="cadastro_pedido.php" method="POST">
-        
+    <form action="pedidos.php" method="POST">
         <div class="mb-3">
-            <label for="cliente_id" class="form-label">Selecione o Cliente*</label>
-            <select class="form-select" id="cliente_id" name="cliente_id" required>
-                <option value="" selected disabled>-- Escolha um cliente --</option>
-                
-                <?php
-                // Itera sobre o array de clientes buscado no banco
-                // e cria uma <option> para cada um
-                if (count($clientes) > 0) {
-                    foreach ($clientes as $cliente) {
-                        // O 'value' da option é o ID, mas o texto exibido é o Nome
-                        echo '<option value="' . htmlspecialchars($cliente['id_cliente']) . '">' 
-                             . htmlspecialchars($cliente['nome']) 
-                             . '</option>';
-                    }
-                } else {
-                    echo '<option value="" disabled>Nenhum cliente cadastrado</option>';
-                }
-                ?>
-            </select>
+            <label class="form-label">Pesquisar Cliente</label> <!-- Adicionei um label para acessibilidade -->
+            <div class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Digite o nome do cliente..." aria-label="Pesquisar Cliente" id="parametro_cliente"/>
+                <button class="btn btn-outline-success" type="button">Pesquisar</button> <!-- Mudei para type="button" -->
+            </div>
         </div>
+        
 
         <div class="alert alert-info mt-3">
             <strong>Nota:</strong> A data e a hora do pedido serão registradas automaticamente pelo sistema no momento do cadastro.
