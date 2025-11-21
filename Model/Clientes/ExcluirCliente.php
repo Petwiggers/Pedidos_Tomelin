@@ -6,16 +6,16 @@
         $id = ($_POST["id"] );
         try {
             $conn = abrirconexao();
-            $sql = "DELETE FROM produtos WHERE id_produto = :id";
+            $sql = "DELETE FROM clientes WHERE id_cliente = :id";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             
-            header("Location: ../../ListarProdutos.php?status=sucesso");
+            header("Location: ../../ListarClientes.php?status=sucesso");
             exit();
         } catch(PDOException $e) {
             error_log("Erro no banco de dados: " . $e->getMessage());
-            header("Location: ../../ListarProdutos.php?status=erro");
+            header("Location: ../../ListarClientes.php?status=erro");
             exit();
         }
         $conn = null;

@@ -3,23 +3,22 @@
 
     try {
         $coon = abrirconexao();
-        $stmt = $coon->prepare("SELECT id_produto, descricao, preco, unidade FROM produtos ORDER BY descricao ASC");
+        $stmt = $coon->prepare("SELECT * FROM clientes ORDER BY nome ASC");
         $stmt->execute();
-        $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (isset($_GET['status'])) {
             if ($_GET['status'] == 'sucesso') {
-                $mensagem = "Produto cadastrado com sucesso!";
+                $mensagem = "Cliente cadastrado com sucesso!";
                 $classeAlerta = "alert-success";
             } elseif ($_GET['status'] == 'erro') {
-                $mensagem = "Ocorreu um erro ao cadastrar o produto. Tente novamente.";
+                $mensagem = "Ocorreu um erro ao cadastrar o cliente. Tente novamente.";
                 $classeAlerta = "alert-danger";
             }
         }
 
     } catch (PDOException $e) {
-        die("Erro ao buscar produtos: " . $e->getMessage());
+        die("Erro ao buscar clientes: " . $e->getMessage());
     }
 ?>
 <!DOCTYPE html>
@@ -82,11 +81,11 @@
                 </div>";
         }
         ?>
-        <h1 class="card-title">Produtos Cadastrados</h1>
+        <h1 class="card-title">Clientes Cadastrados</h1>
 
         <div class="d-flex justify-content-end mb-4">
-            <a href="produtos.php" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Cadastrar Novo Produto
+            <a href="clientes.php" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Cadastrar Novo Cliente
             </a>
         </div>
 
@@ -94,27 +93,27 @@
             <table class="table table-hover align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">Descrição</th>
-                        <th scope="col">Preço (R$)</th>
-                        <th scope="col">Unidade</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col" class="text-center">Quantidade de Pedidos</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (count($produtos) > 0): ?>
-                        <?php foreach ($produtos as $produto): ?>
+                    <?php if (count($clientes) > 0): ?>
+                        <?php foreach ($clientes as $cliente): ?>
                             <tr>
-                                <td><?= htmlspecialchars($produto['descricao']) ?></td>
-                                <td><?= number_format($produto['preco'], 2, ',', '.') ?></td>
-                                <td><?= htmlspecialchars($produto['unidade'] ?: 'N/A') ?></td>
+                                <td><?= htmlspecialchars($cliente['nome']) ?></td>
+                                <td><?= (($cliente['tipo'] == 'J') ? 'Jurídica' : 'Física') ?></td>
+                                <td class="text-center">0</td>
                                 <td class="text-center action-buttons">
-                                    <form action="produtos.php" method="POST">
-                                        <input type="hidden" name="id" value="<?= htmlspecialchars($produto['id_produto']) ?>">
+                                    <form action="clientes.php" method="POST">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($cliente['id_cliente']) ?>">
                                         <input type="submit" value="Editar" class="btn btn-sm btn-outline-primary">
                                     </form>
-                                    <form action="Model/Produtos/ExcluirProduto.php" method="POST">
-                                        <input type="hidden" name="id" value="<?= htmlspecialchars($produto['id_produto']) ?>">
-                                        <input type="submit" value="Excluir" class="btn btn-sm btn-outline-danger mt-1" onclick="return confirm('Deseja Realmente Excluir o produto <?= $produto['descricao']?>' )">
+                                    <form action="Model/Clientes/ExcluirCliente.php" method="POST">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($cliente['id_cliente']) ?>">
+                                        <input type="submit" value="Excluir" class="btn btn-sm btn-outline-danger mt-1" onclick="return confirm('Deseja Realmente Excluir o cliente <?= $cliente['nome']?>' )">
                                     </form>
                                 </td>
                             </tr>
