@@ -1,53 +1,12 @@
 <?php
-// --- PROCESSAMENTO DO FORMULÁRIO ---
-require_once 'conexao.php';
-$mensagem = ""; // Variável para feedback ao usuário
-
-// Verifica se o formulário foi enviado via POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    // 1. Coleta e sanitiza os dados do formulário
-    $descricao = isset($_POST['descricao']) ? htmlspecialchars($_POST['descricao']) : '';
-    $preco = isset($_POST['preco']) ? $_POST['preco'] : ''; // Preço é número, trataremos de forma diferente
-    $unidade = isset($_POST['unidade']) ? htmlspecialchars($_POST['unidade']) : '';
-
-    // 2. Validação dos dados
-    // Verifica se os campos obrigatórios (descricao e preco) não estão vazios
-    if (empty($descricao) || $preco === '') {
-        $mensagem = '<div class="alert alert-danger" role="alert">Erro: Os campos "Descrição" e "Preço" são obrigatórios.</div>';
-    } elseif (!is_numeric($preco) || $preco < 0) {
-        // Valida se o preço é um número válido
-        $mensagem = '<div class="alert alert-danger" role="alert">Erro: O valor do preço é inválido.</div>';
-    } else {
-        try {
-            // Conexão via PDO para maior segurança
-            $conn = abrirconeccao();
-
-            // Query SQL com prepared statements para evitar SQL Injection
-            $sql = "INSERT INTO produtos (descricao, preco, unidade) VALUES (:descricao, :preco, :unidade)";
-            
-            $stmt = $conn->prepare($sql);
-
-            // Associa os valores aos parâmetros da query
-            $stmt->bindParam(':descricao', $descricao);
-            $stmt->bindParam(':preco', $preco);
-            
-            // Para o campo 'unidade', que pode ser nulo, tratamos de forma especial
-            if (empty($unidade)) {
-                $unidade = null;
-            }
-            $stmt->bindParam(':unidade', $unidade);
-            
-            // Executa a query
-            $stmt->execute();
-
-            $mensagem = '<div class="alert alert-success" role="alert">Produto cadastrado com sucesso!</div>';
-
-        } catch(PDOException $e) {
-            $mensagem = '<div class="alert alert-danger" role="alert">Erro ao cadastrar produto: ' . $e->getMessage() . '</div>';
-        }
-        // Fecha a conexão
-        $conn = null;
+// Verifica se existe um parâmetro 'status' na URL
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 'sucesso') {
+        $mensagem = "Cliente cadastrado com sucesso!";
+        $classeAlerta = "alert-success"; // Classe do Bootstrap para sucesso (verde)
+    } elseif ($_GET['status'] == 'erro') {
+        $mensagem = "Ocorreu um erro ao cadastrar o cliente. Tente novamente.";
+        $classeAlerta = "alert-danger"; // Classe do Bootstrap para erro (vermelho)
     }
 }
 ?>
@@ -78,10 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Cadastro de Produtos</h2>
 
-    <!-- Exibe a mensagem de sucesso ou erro -->
-    <?php if (!empty($mensagem)) echo $mensagem; ?>
+    <?php
+    // Se a variável $mensagem foi definida, exibe o alerta do Bootstrap
+    if (isset($mensagem)) {
+        echo "<div class='alert {$classeAlerta} alert-dismissible fade show' role='alert'>
+                {$mensagem}
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+              </div>";
+    }
+    ?>
 
-    <form action="cadastro_produto.php" method="POST">
+    <form action="Model/Produtos/CadastroProdutos.php" method="POST">
         
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição do Produto*</label>

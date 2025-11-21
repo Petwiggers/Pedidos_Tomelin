@@ -1,75 +1,15 @@
 <?php
-// --- PROCESSAMENTO DO FORMULÁRIO ---
-require_once 'conexao.php';
-
-// Esta variável guardará a mensagem de feedback (sucesso ou erro)
-$mensagem = "";
-
-// Verifica se o formulário foi enviado (se o método da requisição é POST)
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    // 1. COLETAR E SANITIZAR OS DADOS DO FORMULÁRIO
-    // A função htmlspecialchars() é uma medida de segurança básica para evitar ataques XSS.
-    $tipo = isset($_POST['tipo']) ? htmlspecialchars($_POST['tipo']) : '';
-    $nome = isset($_POST['nome']) ? htmlspecialchars($_POST['nome']) : '';
-    $cpf = isset($_POST['cpf']) ? htmlspecialchars($_POST['cpf']) : '';
-    $cnpj = isset($_POST['cnpj']) ? htmlspecialchars($_POST['cnpj']) : '';
-    $email = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
-    $telefone_pessoal = isset($_POST['telefone_pessoal']) ? htmlspecialchars($_POST['telefone_pessoal']) : '';
-    $telefone_residencial = isset($_POST['telefone_residencial']) ? htmlspecialchars($_POST['telefone_residencial']) : '';
-    
-    $cep = isset($_POST['cep']) ? htmlspecialchars($_POST['cep']) : '';
-    $endereco = isset($_POST['endereco']) ? htmlspecialchars($_POST['endereco']) : '';
-    $numero_end = isset($_POST['numero_end']) ? htmlspecialchars($_POST['numero_end']) : '';
-    $bairro = isset($_POST['bairro']) ? htmlspecialchars($_POST['bairro']) : '';
-    $sigla_estado = isset($_POST['sigla_estado']) ? htmlspecialchars($_POST['sigla_estado']) : '';
-    $proximidade = isset($_POST['proximidade']) ? htmlspecialchars($_POST['proximidade']) : '';
-
-    // 2. VALIDAÇÃO BÁSICA (exemplo)
-    // Verificamos se os campos obrigatórios (baseado na imagem, que não são NULL) foram preenchidos.
-    if (empty($tipo) || empty($nome) || empty($cep) || empty($endereco) || empty($numero_end) || empty($bairro) || empty($sigla_estado)) {
-        $mensagem = '<div class="alert alert-danger" role="alert">Erro: Por favor, preencha todos os campos obrigatórios de Dados Pessoais e Endereço.</div>';
-    } else {
-        try {
-            $conn = abrirconeccao();
-
-            // Preparar a query SQL para evitar SQL Injection
-            $sql = "INSERT INTO clientes (tipo, nome, cpf, cnpj, email, telefone_pessoal, telefone_residencial, cep, endereco, numero_end, bairro, sigla_estado, proximidade) 
-                    VALUES (:tipo, :nome, :cpf, :cnpj, :email, :telefone_pessoal, :telefone_residencial, :cep, :endereco, :numero_end, :bairro, :sigla_estado, :proximidade)";
-            
-            $stmt = $conn->prepare($sql);
-
-            // Associar os valores do formulário aos parâmetros da query
-            $stmt->bindParam(':tipo', $tipo);
-            $stmt->bindParam(':nome', $nome);
-            $stmt->bindParam(':cpf', $cpf);
-            $stmt->bindParam(':cnpj', $cnpj);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':telefone_pessoal', $telefone_pessoal);
-            $stmt->bindParam(':telefone_residencial', $telefone_residencial);
-            $stmt->bindParam(':cep', $cep);
-            $stmt->bindParam(':endereco', $endereco);
-            $stmt->bindParam(':numero_end', $numero_end);
-            $stmt->bindParam(':bairro', $bairro);
-            $stmt->bindParam(':sigla_estado', $sigla_estado);
-            $stmt->bindParam(':proximidade', $proximidade);
-            
-            // Executar a query
-            $stmt->execute();
-
-            $mensagem = '<div class="alert alert-success" role="alert">Cliente cadastrado com sucesso!</div>';
-
-        } catch(PDOException $e) {
-            // Em caso de erro na conexão ou na query
-            $mensagem = '<div class="alert alert-danger" role="alert">Erro ao cadastrar cliente: ' . $e->getMessage() . '</div>';
-        }
-
-        // Fechar a conexão
-        $conn = null;
+// Verifica se existe um parâmetro 'status' na URL
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 'sucesso') {
+        $mensagem = "Cliente cadastrado com sucesso!";
+        $classeAlerta = "alert-success"; // Classe do Bootstrap para sucesso (verde)
+    } elseif ($_GET['status'] == 'erro') {
+        $mensagem = "Ocorreu um erro ao cadastrar o cliente. Tente novamente.";
+        $classeAlerta = "alert-danger"; // Classe do Bootstrap para erro (vermelho)
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -96,14 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
 <div class="container mt-5">
+    <?php
+    // Se a variável $mensagem foi definida, exibe o alerta do Bootstrap
+    if (isset($mensagem)) {
+        echo "<div class='alert {$classeAlerta} alert-dismissible fade show' role='alert'>
+                {$mensagem}
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+              </div>";
+    }
+    ?>
     <h2 class="mb-4 text-center">Cadastro de Clientes</h2>
 
-    <!-- Exibe a mensagem de sucesso ou erro aqui -->
-    <?php if (!empty($mensagem)) echo $mensagem; ?>
-
-    <form action="clientes.php" method="POST">
+    <form action="Model/Clientes/CadastroClientes.php" method="POST">
         
         <!-- Seção de Dados Pessoais -->
         <h4 class="mb-3 border-bottom pb-2">Dados Pessoais</h4>
