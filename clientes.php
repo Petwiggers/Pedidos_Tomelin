@@ -46,6 +46,7 @@ if (isset($_GET['status'])) {
               </div>";
     }
     ?>
+    <a href="ListarClientes.php" type="button" class="btn btn-success">Voltar</a>
     <h2 class="mb-4 text-center">Cadastro de Clientes</h2>
 
     <form action="Model/Clientes/CadastroClientes.php" method="POST">

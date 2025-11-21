@@ -4,20 +4,20 @@
     
     // 1. COLETAR E SANITIZAR OS DADOS DO FORMULÁRIO
     // A função htmlspecialchars() é uma medida de segurança básica para evitar ataques XSS.
-    $tipo = isset($_POST['tipo']) ? htmlspecialchars($_POST['tipo']) : '';
-    $nome = isset($_POST['nome']) ? htmlspecialchars($_POST['nome']) : '';
-    $cpf = isset($_POST['cpf']) ? htmlspecialchars($_POST['cpf']) : '';
-    $cnpj = isset($_POST['cnpj']) ? htmlspecialchars($_POST['cnpj']) : '';
-    $email = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
-    $telefone_pessoal = isset($_POST['telefone_pessoal']) ? htmlspecialchars($_POST['telefone_pessoal']) : '';
-    $telefone_residencial = isset($_POST['telefone_residencial']) ? htmlspecialchars($_POST['telefone_residencial']) : '';
+    $tipo = isset($_POST['tipo']) ? ($_POST['tipo']) : '';
+    $nome = isset($_POST['nome']) ? ($_POST['nome']) : '';
+    $cpf = isset($_POST['cpf']) ? ($_POST['cpf']) : '';
+    $cnpj = isset($_POST['cnpj']) ? ($_POST['cnpj']) : '';
+    $email = isset($_POST['email']) ? ($_POST['email']) : '';
+    $telefone_pessoal = isset($_POST['telefone_pessoal']) ? ($_POST['telefone_pessoal']) : '';
+    $telefone_residencial = isset($_POST['telefone_residencial']) ? ($_POST['telefone_residencial']) : '';
     
-    $cep = isset($_POST['cep']) ? htmlspecialchars($_POST['cep']) : '';
-    $endereco = isset($_POST['endereco']) ? htmlspecialchars($_POST['endereco']) : '';
-    $numero_end = isset($_POST['numero_end']) ? htmlspecialchars($_POST['numero_end']) : '';
-    $bairro = isset($_POST['bairro']) ? htmlspecialchars($_POST['bairro']) : '';
-    $sigla_estado = isset($_POST['sigla_estado']) ? htmlspecialchars($_POST['sigla_estado']) : '';
-    $proximidade = isset($_POST['proximidade']) ? htmlspecialchars($_POST['proximidade']) : '';
+    $cep = isset($_POST['cep']) ? ($_POST['cep']) : '';
+    $endereco = isset($_POST['endereco']) ? ($_POST['endereco']) : '';
+    $numero_end = isset($_POST['numero_end']) ? ($_POST['numero_end']) : '';
+    $bairro = isset($_POST['bairro']) ? ($_POST['bairro']) : '';
+    $sigla_estado = isset($_POST['sigla_estado']) ? ($_POST['sigla_estado']) : '';
+    $proximidade = isset($_POST['proximidade']) ? ($_POST['proximidade']) : '';
 
     // 2. VALIDAÇÃO BÁSICA (exemplo)
     // Verificamos se os campos obrigatórios (baseado na imagem, que não são NULL) foram preenchidos.
@@ -25,7 +25,7 @@
         $mensagem = '<div class="alert alert-danger" role="alert">Erro: Por favor, preencha todos os campos obrigatórios de Dados Pessoais e Endereço.</div>';
     } else {
         try {
-            $conn = abrirconeccao();
+            $conn = abrirconexao();
 
             // Preparar a query SQL para evitar SQL Injection
             $sql = "INSERT INTO clientes (tipo, nome, cpf, cnpj, email, telefone_pessoal, telefone_residencial, cep, endereco, numero_end, bairro, sigla_estado, proximidade) 

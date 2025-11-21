@@ -3,11 +3,23 @@
 require_once 'Model/conexao.php'; // <-- ATENÇÃO: Altere para o nome do seu arquivo de conexão
 
 try {
-    $coon = abrirconeccao();
+    $coon = abrirconexao();
     // Prepara e executa a query para selecionar todos os produtos
     $stmt = $coon->prepare("SELECT id_produto, descricao, preco, unidade FROM produtos ORDER BY descricao ASC");
     $stmt->execute();
     $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+    if (isset($_GET['status'])) {
+        if ($_GET['status'] == 'sucesso') {
+            $mensagem = "Cliente cadastrado com sucesso!";
+            $classeAlerta = "alert-success"; // Classe do Bootstrap para sucesso (verde)
+        } elseif ($_GET['status'] == 'erro') {
+            $mensagem = "Ocorreu um erro ao cadastrar o cliente. Tente novamente.";
+            $classeAlerta = "alert-danger"; // Classe do Bootstrap para erro (vermelho)
+        }
+    }
+
 } catch (PDOException $e) {
     // Em caso de erro, exibe uma mensagem e para o script
     die("Erro ao buscar produtos: " . $e->getMessage());
@@ -65,6 +77,14 @@ try {
 
 <div class="main-container">
     <div class="content-card">
+        <?php
+        if (isset($mensagem)) {
+            echo "<div class='alert {$classeAlerta} alert-dismissible fade show' role='alert'>
+                    {$mensagem}
+                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                </div>";
+        }
+        ?>
         <h1 class="card-title">Produtos Cadastrados</h1>
 
         <div class="d-flex justify-content-end mb-4">
@@ -73,7 +93,6 @@ try {
             </a>
         </div>
 
-        <!-- Div para tornar a tabela responsiva em telas pequenas -->
         <div class="table-responsive">
             <table class="table table-hover align-middle">
                 <thead class="table-light">
@@ -92,12 +111,14 @@ try {
                                 <td><?= number_format($produto['preco'], 2, ',', '.') ?></td>
                                 <td><?= htmlspecialchars($produto['unidade'] ?: 'N/A') ?></td>
                                 <td class="text-center action-buttons">
-                                    <a href="Model/Produtos/CadastrarProduto.php?id=<?= $produto['id_produto'] ?>" class="btn btn-sm btn-outline-primary" title="Editar">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-outline-danger" title="Excluir" onclick="excluir_produto()">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+                                    <form action="produtos.php" method="POST">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($produto['id_produto']) ?>">
+                                        <input type="submit" value="Editar" class="btn btn-sm btn-outline-primary">
+                                    </form>
+                                    <form action="Model/Produtos/ExcluirProduto.php" method="POST">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($produto['id_produto']) ?>">
+                                        <input type="submit" value="Excluir" class="btn btn-sm btn-outline-danger mt-1" onclick="return confirm('Deseja Realmente Excluir o produto <?= $produto['descricao']?>' )">
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -114,19 +135,6 @@ try {
 
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script >
-    function excluir_produto(id_produto){
-        confirmação = confirm('Tem certeza que deseja excluir este produto?');
-        console.log(confirmação)
-        if(confirmacao){
-            const response = await fetch(`Model/Produtos/Excluir.php/?id=${productId}`, {
-            method: 'DELETE'
-            } );
-        }
-    }
-
-</script>
 
 </body>
 </html>

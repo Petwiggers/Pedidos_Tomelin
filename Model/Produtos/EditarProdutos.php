@@ -2,8 +2,8 @@
 require_once '../conexao.php';
 $mensagem = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
+    $id = ($_POST["id"] );
     $descricao = isset($_POST['descricao']) ? ($_POST['descricao']) : '';
     $preco = isset($_POST['preco']) ? $_POST['preco'] : '';
     $unidade = isset($_POST['unidade']) ? ($_POST['unidade']) : '';
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         try {
             $conn = abrirconexao();
-            $sql = "INSERT INTO produtos (descricao, preco, unidade) VALUES (:descricao, :preco, :unidade)";
+            $sql = "UPDATE produtos SET descricao = :descricao, preco = :preco, unidade = :unidade WHERE id_produto = :id";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':descricao', $descricao);
             $stmt->bindParam(':preco', $preco);
@@ -25,14 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $unidade = null;
             }
             $stmt->bindParam(':unidade', $unidade);
+            $stmt->bindParam(':id', $id);
+
             $stmt->execute();
 
-            header("Location: ../../produtos.php?status=sucesso");
+            header("Location: ../../ListarProdutos.php?status=sucesso");
             exit();
-
         } catch(PDOException $e) {
             error_log("Erro no banco de dados: " . $e->getMessage());
-            header("Location: ../../clientes.php?status=erro");
+            header("Location: ../../ListarProdutos.php?status=erro");
             exit();
         }
         $conn = null;

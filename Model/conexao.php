@@ -1,6 +1,6 @@
 <?php
     try{
-        function abrirconeccao (){
+        function abrirconexao (){
             $servername='localhost';
             $username = "user_tomelin"; // seu usuário
             $password = "tomelin"; // sua senha
