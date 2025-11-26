@@ -14,6 +14,7 @@
     
     $cep = isset($_POST['cep']) ? ($_POST['cep']) : '';
     $endereco = isset($_POST['endereco']) ? ($_POST['endereco']) : '';
+    $cidade = isset($_POST['cidade']) ? ($_POST['cidade']) : '';
     $numero_end = isset($_POST['numero_end']) ? ($_POST['numero_end']) : '';
     $bairro = isset($_POST['bairro']) ? ($_POST['bairro']) : '';
     $sigla_estado = isset($_POST['sigla_estado']) ? ($_POST['sigla_estado']) : '';
@@ -28,8 +29,8 @@
             $conn = abrirconexao();
 
             // Preparar a query SQL para evitar SQL Injection
-            $sql = "INSERT INTO clientes (tipo, nome, cpf, cnpj, email, telefone_pessoal, telefone_residencial, cep, endereco, numero_end, bairro, sigla_estado, proximidade) 
-                    VALUES (:tipo, :nome, :cpf, :cnpj, :email, :telefone_pessoal, :telefone_residencial, :cep, :endereco, :numero_end, :bairro, :sigla_estado, :proximidade)";
+            $sql = "INSERT INTO clientes (tipo, nome, cpf, cnpj, email, telefone_pessoal, telefone_residencial, cep, endereco, cidade, numero_end, bairro, sigla_estado, proximidade) 
+                    VALUES (:tipo, :nome, :cpf, :cnpj, :email, :telefone_pessoal, :telefone_residencial, :cep, :endereco, :cidade, :numero_end, :bairro, :sigla_estado, :proximidade)";
             
             $stmt = $conn->prepare($sql);
 
@@ -47,6 +48,7 @@
             $stmt->bindParam(':bairro', $bairro);
             $stmt->bindParam(':sigla_estado', $sigla_estado);
             $stmt->bindParam(':proximidade', $proximidade);
+            $stmt->bindParam(':cidade', $cidade);
             
             // Executar a query
             $stmt->execute();

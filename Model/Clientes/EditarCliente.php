@@ -15,6 +15,7 @@
     
     $cep = isset($_POST['cep']) ? ($_POST['cep']) : '';
     $endereco = isset($_POST['endereco']) ? ($_POST['endereco']) : '';
+    $cidade = isset($_POST['cidade']) ? ($_POST['cidade']) : '';
     $numero_end = isset($_POST['numero_end']) ? ($_POST['numero_end']) : '';
     $bairro = isset($_POST['bairro']) ? ($_POST['bairro']) : '';
     $sigla_estado = isset($_POST['sigla_estado']) ? ($_POST['sigla_estado']) : '';
@@ -30,7 +31,7 @@
 
             // Preparar a query SQL para evitar SQL Injection
             $sql = "UPDATE clientes SET tipo = :tipo,  nome = :nome, cpf = :cpf, cnpj = :cnpj, email = :email, telefone_pessoal = :telefone_pessoal, 
-            telefone_residencial = :telefone_residencial, cep = :cep, endereco = :endereco, numero_end = :numero_end, bairro = :bairro, sigla_estado = :sigla_estado, proximidade = :proximidade
+            telefone_residencial = :telefone_residencial, cep = :cep, endereco = :endereco, cidade = :cidade, numero_end = :numero_end, bairro = :bairro, sigla_estado = :sigla_estado, proximidade = :proximidade
                 WHERE id_cliente = :id";
             $stmt = $conn->prepare($sql);
 
@@ -44,6 +45,7 @@
             $stmt->bindParam(':telefone_residencial', $telefone_residencial);
             $stmt->bindParam(':cep', $cep);
             $stmt->bindParam(':endereco', $endereco);
+            $stmt->bindParam(':cidade', $cidade);
             $stmt->bindParam(':numero_end', $numero_end);
             $stmt->bindParam(':bairro', $bairro);
             $stmt->bindParam(':sigla_estado', $sigla_estado);

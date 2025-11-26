@@ -11,6 +11,7 @@ try {
         'telefone_residencial' => '',
         'cep' => '',
         'endereco' => '',
+        'cidade' => '',
         'numero_end' => '',
         'bairro' => '',
         'sigla_estado' => '',
@@ -164,13 +165,16 @@ try {
                     <input type="text" class="form-control" id="bairro" name="bairro" required value="<?= htmlspecialchars($cliente['bairro']); ?>">
                 </div>
                 <div class="col-md-4">
+                    <label for="cidade" class="form-label">Cidade</label>
+                    <input type="text" class="form-control" id="cidade" name="cidade" require value="<?= htmlspecialchars($cliente['cidade']); ?>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-2">
                     <label for="sigla_estado" class="form-label">Estado (UF)*</label>
                     <input type="text" class="form-control" id="sigla_estado" name="sigla_estado" maxlength="2" required placeholder="Ex: SP" value="<?= htmlspecialchars($cliente['sigla_estado']); ?>">
                 </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-12">
+                <div class="col-md-10">
                     <label for="proximidade" class="form-label">Ponto de Referência / Proximidade</label>
                     <input type="text" class="form-control" id="proximidade" name="proximidade" value="<?= htmlspecialchars($cliente['proximidade']); ?>">
                 </div>
