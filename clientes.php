@@ -110,33 +110,33 @@ try {
                 </div>
                 <div class="col-md-6">
                     <label for="nome" class="form-label">Nome Completo / Razão Social*</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required value=<?= htmlspecialchars($cliente['nome']); ?>>
+                    <input type="text" class="form-control" id="nome" name="nome" required value="<?= htmlspecialchars($cliente['nome']); ?>">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" value=<?= htmlspecialchars($cliente['cpf']); ?>>
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" value="<?= htmlspecialchars($cliente['cpf']); ?>">
                 </div>
                 <div class="col-md-6">
                     <label for="cnpj" class="form-label">CNPJ</label>
-                    <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="00.000.000/0001-00" value=<?= htmlspecialchars($cliente['cnpj']); ?>>
+                    <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="00.000.000/0001-00" value="<?= htmlspecialchars($cliente['cnpj']); ?>">
                 </div>
             </div>
 
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label for="email" class="form-label">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="seu@email.com" value=<?= htmlspecialchars($cliente['email']); ?>>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="seu@email.com" value="<?= htmlspecialchars($cliente['email']); ?>">
                 </div>
                 <div class="col-md-4">
                     <label for="telefone_pessoal" class="form-label">Telefone Pessoal</label>
-                    <input type="tel" class="form-control" id="telefone_pessoal" name="telefone_pessoal" placeholder="(00) 90000-0000" value=<?= htmlspecialchars($cliente['telefone_pessoal']); ?>>
+                    <input type="tel" class="form-control" id="telefone_pessoal" name="telefone_pessoal" placeholder="(00) 90000-0000" value="<?= htmlspecialchars($cliente['telefone_pessoal']); ?>">
                 </div>
                 <div class="col-md-4">
                     <label for="telefone_residencial" class="form-label">Telefone Residencial</label>
-                    <input type="tel" class="form-control" id="telefone_residencial" name="telefone_residencial" placeholder="(00) 0000-0000" value=<?= htmlspecialchars($cliente['telefone_residencial']); ?>>
+                    <input type="tel" class="form-control" id="telefone_residencial" name="telefone_residencial" placeholder="(00) 0000-0000" value="<?= htmlspecialchars($cliente['telefone_residencial']); ?>">
                 </div>
             </div>
 
@@ -146,33 +146,33 @@ try {
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="cep" class="form-label">CEP*</label>
-                    <input type="text" class="form-control" id="cep" name="cep" required value=<?= htmlspecialchars($cliente['cep']); ?>>
+                    <input type="text" class="form-control" id="cep" name="cep" required value="<?= htmlspecialchars($cliente['cep']); ?>">
                 </div>
                 <div class="col-md-8">
                     <label for="endereco" class="form-label">Endereço (Rua, Av.)*</label>
-                    <input type="text" class="form-control" id="endereco" name="endereco" required value=<?= htmlspecialchars($cliente['endereco']); ?>>
+                    <input type="text" class="form-control" id="endereco" name="endereco" required value="<?= htmlspecialchars($cliente['endereco']); ?>">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-3">
                     <label for="numero_end" class="form-label">Número*</label>
-                    <input type="text" class="form-control" id="numero_end" name="numero_end" required value=<?= htmlspecialchars($cliente['numero_end']); ?>>
+                    <input type="text" class="form-control" id="numero_end" name="numero_end" required value="<?= htmlspecialchars($cliente['numero_end']); ?>">
                 </div>
                 <div class="col-md-5">
                     <label for="bairro" class="form-label">Bairro*</label>
-                    <input type="text" class="form-control" id="bairro" name="bairro" required value=<?= htmlspecialchars($cliente['bairro']); ?>>
+                    <input type="text" class="form-control" id="bairro" name="bairro" required value="<?= htmlspecialchars($cliente['bairro']); ?>">
                 </div>
                 <div class="col-md-4">
                     <label for="sigla_estado" class="form-label">Estado (UF)*</label>
-                    <input type="text" class="form-control" id="sigla_estado" name="sigla_estado" maxlength="2" required placeholder="Ex: SP" value=<?= htmlspecialchars($cliente['sigla_estado']); ?>>
+                    <input type="text" class="form-control" id="sigla_estado" name="sigla_estado" maxlength="2" required placeholder="Ex: SP" value="<?= htmlspecialchars($cliente['sigla_estado']); ?>">
                 </div>
             </div>
 
             <div class="row mb-4">
                 <div class="col-md-12">
                     <label for="proximidade" class="form-label">Ponto de Referência / Proximidade</label>
-                    <input type="text" class="form-control" id="proximidade" name="proximidade" value=<?= htmlspecialchars($cliente['proximidade']); ?>>
+                    <input type="text" class="form-control" id="proximidade" name="proximidade" value="<?= htmlspecialchars($cliente['proximidade']); ?>">
                 </div>
             </div>
 

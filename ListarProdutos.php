@@ -10,10 +10,10 @@
 
         if (isset($_GET['status'])) {
             if ($_GET['status'] == 'sucesso') {
-                $mensagem = "Produto cadastrado com sucesso!";
+                $mensagem = "Produto cadastrado/editado com sucesso!";
                 $classeAlerta = "alert-success";
             } elseif ($_GET['status'] == 'erro') {
-                $mensagem = "Ocorreu um erro ao cadastrar o produto. Tente novamente.";
+                $mensagem = "Ocorreu um erro ao cadastrar/editar o produto. Tente novamente.";
                 $classeAlerta = "alert-danger";
             }
         }

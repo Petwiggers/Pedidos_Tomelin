@@ -9,10 +9,10 @@
 
         if (isset($_GET['status'])) {
             if ($_GET['status'] == 'sucesso') {
-                $mensagem = "Cliente cadastrado com sucesso!";
+                $mensagem = "Cliente cadastrado/editado com sucesso!";
                 $classeAlerta = "alert-success";
             } elseif ($_GET['status'] == 'erro') {
-                $mensagem = "Ocorreu um erro ao cadastrar o cliente. Tente novamente.";
+                $mensagem = "Ocorreu um erro ao cadastrar/editar o cliente. Tente novamente.";
                 $classeAlerta = "alert-danger";
             }
         }

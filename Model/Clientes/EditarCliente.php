@@ -4,6 +4,7 @@
     
     // 1. COLETAR E SANITIZAR OS DADOS DO FORMULÁRIO
     // A função htmlspecialchars() é uma medida de segurança básica para evitar ataques XSS.
+    $id = isset($_POST['id']) ? ($_POST['id']) : '';
     $tipo = isset($_POST['tipo']) ? ($_POST['tipo']) : '';
     $nome = isset($_POST['nome']) ? ($_POST['nome']) : '';
     $cpf = isset($_POST['cpf']) ? ($_POST['cpf']) : '';
@@ -28,8 +29,8 @@
             $conn = abrirconexao();
 
             // Preparar a query SQL para evitar SQL Injection
-            $sql = "UPDATE INTO clientes SET tipo = :tipo,  nome = :nome, cpf = :cpf, cnpj = :cnpj,, email = :email, telefone_pessoal = :telefone_pessoal, 
-                telefone_residencial = :telefone_residencial, cep = :cep, endereco = :endereco, numero_end = :numero_end, bairro = :bairro, sigla_estado = :sigla_estado, proximidade = :proximidade
+            $sql = "UPDATE clientes SET tipo = :tipo,  nome = :nome, cpf = :cpf, cnpj = :cnpj, email = :email, telefone_pessoal = :telefone_pessoal, 
+            telefone_residencial = :telefone_residencial, cep = :cep, endereco = :endereco, numero_end = :numero_end, bairro = :bairro, sigla_estado = :sigla_estado, proximidade = :proximidade
                 WHERE id_cliente = :id";
             $stmt = $conn->prepare($sql);
 
@@ -47,17 +48,19 @@
             $stmt->bindParam(':bairro', $bairro);
             $stmt->bindParam(':sigla_estado', $sigla_estado);
             $stmt->bindParam(':proximidade', $proximidade);
+            $stmt->bindParam(':id', $id);
             
             // Executar a query
-            $stmt->execute();
-
-            header("Location: ../../clientes.php?status=sucesso");
+            if($stmt->execute()){
+                echo "Executou";
+            }
+            header("Location: ../../ListarClientes.php?status=sucesso");
             exit();
 
         } catch(PDOException $e) {
             // Em caso de erro na conexão ou na query
             error_log("Erro no banco de dados: " . $e->getMessage());
-            header("Location: ../../clientes.php?status=erro");
+            header("Location: ../../ListarClientes.php?status=erro");
             exit();
         }
 
