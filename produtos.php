@@ -41,7 +41,6 @@ try {
     header("Location: ../../clientes.php?status=erro");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -97,12 +96,12 @@ try {
                     <label for="unidade" class="form-label">Unidade</label>
                     <select class="form-select" id="unidade" name="unidade">
                         <option value="" <?= ($produto['unidade'] == '') ? 'selected' : '' ?>>Nenhuma</option>
-                        <option value="UN" <?= ($produto['unidade'] == 'UN') ? 'selected' : '' ?>>UN (Unidade)</option>
-                        <option value="PC" <?= ($produto['unidade'] == 'PC') ? 'selected' : '' ?>>PC (Peça)</option>
-                        <option value="KG" <?= ($produto['unidade'] == 'KG') ? 'selected' : '' ?>>KG (Quilograma)</option>
-                        <option value="M" <?= ($produto['unidade'] == 'M') ? 'selected' : '' ?>>M (Metro)</option>
-                        <option value="M²" <?= ($produto['unidade'] == 'M²') ? 'selected' : '' ?>>M (Metro)</option>
-                        <option value="CM" <?= ($produto['unidade'] == 'CM') ? 'selected' : '' ?>>M (Metro)</option>
+                        <option value="UN" <?= ($produto['unidade'] == 'UN') ? 'selected' : '' ?>>UN</option>
+                        <option value="PC" <?= ($produto['unidade'] == 'PC') ? 'selected' : '' ?>>PC</option>
+                        <option value="KG" <?= ($produto['unidade'] == 'KG') ? 'selected' : '' ?>>KG</option>
+                        <option value="M" <?= ($produto['unidade'] == 'M') ? 'selected' : '' ?>>M</option>
+                        <option value="M²" <?= ($produto['unidade'] == 'M²') ? 'selected' : '' ?>>M²</option>
+                        <option value="CM" <?= ($produto['unidade'] == 'CM') ? 'selected' : '' ?>>CM</option>
                     </select>
                 </div>
             </div>
@@ -114,7 +113,6 @@ try {
 
         </form>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

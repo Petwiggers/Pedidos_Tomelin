@@ -19,21 +19,20 @@ try {
 
     if (isset($_GET['status'])) {
         if ($_GET['status'] == 'sucesso') {
-            $mensagem = "Cliente cadastrado com sucesso!";
+            $mensagem = "Cliente cadastrado/editado com sucesso!";
             $classeAlerta = "alert-success";
         } elseif ($_GET['status'] == 'erro') {
-            $mensagem = "Ocorreu um erro ao cadastrar o cliente. Tente novamente.";
+            $mensagem = "Ocorreu um erro ao cadastrar/editar o cliente. Tente novamente.";
             $classeAlerta = "alert-danger";
         }
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
         require_once 'Model/conexao.php';
         $id_cliente = $_POST['id'];
-
         $conn = abrirconexao();
         $sql = 'SELECT * FROM clientes WHERE id_cliente = :id';
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id', $id_produto);
+        $stmt->bindParam(':id', $id_cliente);
         $stmt->execute();
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -95,7 +94,7 @@ try {
         <a href="ListarClientes.php" type="button" class="btn btn-success">Voltar</a>
         <h2 class="mb-4 text-center">Cadastro de Clientes</h2>
 
-        <form action="Model/Clientes/<?= (empty($cliente['id_cliente'])) ? 'CadastroClientes.php' : 'EditarClientes.php' ?>" method="POST">
+        <form action="Model/Clientes/<?= (empty($cliente['id_cliente'])) ? 'CadastroCliente.php' : 'EditarCliente.php' ?>" method="POST">
 
             <!-- Seção de Dados Pessoais -->
             <h4 class="mb-3 border-bottom pb-2">Dados Pessoais</h4>
