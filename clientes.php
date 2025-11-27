@@ -50,8 +50,6 @@ try {
     header("Location: ../../clientes.php?status=erro");
     exit();
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -79,6 +77,7 @@ try {
 
     <!-- Script do Bootstrap (opcional, para componentes interativos) -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="JS/clientes.js"></script>
 </head>
 
 <body>
@@ -147,7 +146,7 @@ try {
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="cep" class="form-label">CEP*</label>
-                    <input type="text" class="form-control" id="cep" name="cep" required value="<?= htmlspecialchars($cliente['cep']); ?>">
+                    <input type="text" class="form-control" id="cep" name="cep" required value="<?= htmlspecialchars($cliente['cep']); ?>" onblur="validarCep(this.value)">
                 </div>
                 <div class="col-md-8">
                     <label for="endereco" class="form-label">Endereço (Rua, Av.)*</label>
@@ -189,5 +188,4 @@ try {
         </form>
     </div>
 </body>
-
 </html>
