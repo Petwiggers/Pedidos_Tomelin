@@ -60,6 +60,7 @@ try {
     <title>Cadastro de Clientes</title>
     <!-- Link para o CSS do Bootstrap via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="CSS/clientes.css" rel="stylesheet">
     <style>
         /* Estilo para dar um espaçamento melhor */
         body {
@@ -77,6 +78,11 @@ try {
 
     <!-- Script do Bootstrap (opcional, para componentes interativos) -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Biblioteca para utilização de Mascaras -->
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
     <script defer src="JS/clientes.js"></script>
 </head>
 
@@ -117,7 +123,8 @@ try {
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" value="<?= htmlspecialchars($cliente['cpf']); ?>">
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" value="<?= htmlspecialchars($cliente['cpf']); ?>" onblur="validarCpf(this)">
+                    <div class="invalid-feedback">CPF inválido</div>
                 </div>
                 <div class="col-md-6">
                     <label for="cnpj" class="form-label">CNPJ</label>
@@ -128,25 +135,31 @@ try {
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label for="email" class="form-label">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="seu@email.com" value="<?= htmlspecialchars($cliente['email']); ?>">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="seu@email.com" value="<?= htmlspecialchars($cliente['email']); ?>" onblur="validarEmail(this)">
+                    <div class="invalid-feedback">E-mail inválido !</div>
                 </div>
                 <div class="col-md-4">
                     <label for="telefone_pessoal" class="form-label">Telefone Pessoal</label>
-                    <input type="tel" class="form-control" id="telefone_pessoal" name="telefone_pessoal" placeholder="(00) 90000-0000" value="<?= htmlspecialchars($cliente['telefone_pessoal']); ?>">
+                    <input type="tel" class="form-control" id="telefone_pessoal" name="telefone_pessoal" placeholder="(00) 0000-0000" value="<?= htmlspecialchars($cliente['telefone_pessoal']); ?>" onblur="validarTelefone(this)">
+                    <div class="invalid-feedback">Telefone inválido !</div>
                 </div>
                 <div class="col-md-4">
                     <label for="telefone_residencial" class="form-label">Telefone Residencial</label>
-                    <input type="tel" class="form-control" id="telefone_residencial" name="telefone_residencial" placeholder="(00) 0000-0000" value="<?= htmlspecialchars($cliente['telefone_residencial']); ?>">
+                    <input type="tel" class="form-control" id="telefone_residencial" name="telefone_residencial" placeholder="(00) 0000-0000" value="<?= htmlspecialchars($cliente['telefone_residencial']); ?>" onblur="validarTelefone(this)">
+                    <div class="invalid-feedback">Telefone inválido !</div>
                 </div>
             </div>
-
+            <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
             <!-- Seção de Endereço -->
             <h4 class="mb-3 border-bottom pb-2">Endereço</h4>
 
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="cep" class="form-label">CEP*</label>
-                    <input type="text" class="form-control" id="cep" name="cep" required value="<?= htmlspecialchars($cliente['cep']); ?>" onblur="validarCep(this.value)">
+                    <input type="text" class="form-control" id="cep" name="cep" required value="<?= htmlspecialchars($cliente['cep']); ?>" onblur="validarCep(this)">
+                    <div class="invalid-feedback">CEP Inválido</div>
                 </div>
                 <div class="col-md-8">
                     <label for="endereco" class="form-label">Endereço (Rua, Av.)*</label>
@@ -188,4 +201,5 @@ try {
         </form>
     </div>
 </body>
+
 </html>
