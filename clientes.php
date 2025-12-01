@@ -149,9 +149,11 @@ try {
                     <div class="invalid-feedback">Telefone inválido !</div>
                 </div>
             </div>
-            <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
+            <div class="d-flex justify-content-center d-none" id="loading">
+                <strong style="font-size: larger; margin-right: 30px">Carregando...</strong>
+                <div class="spinner-border float-right" style="width: 3rem; height: 3rem;" role="status"></div>
             </div>
+
             <!-- Seção de Endereço -->
             <h4 class="mb-3 border-bottom pb-2">Endereço</h4>
 

@@ -21,21 +21,20 @@ function validarCep(input){
 
 async function BuscarCep(cep){
     try {
-        const loading = document.getElementById('loadingCep');
-        loading.style = "Display:inline";
-        setTimeout(async() => {
-            const resposta = await fetch("https://viacep.com.br/ws/"+cep+"/json/");
-        
-            const dados = await resposta.json();
-            loading.style = "Display:none";
-            document.getElementById('endereco').value = dados.logradouro ? dados.logradouro : '';
-            document.getElementById('bairro').value = dados.bairro ? dados.bairro : '';
-            document.getElementById('cidade').value = dados.localidade ? dados.localidade : '';
-            document.getElementById('sigla_estado').value = dados.uf ? dados.uf : '';
-            if(dados.erro){
-                    
-            }
-        }) 
+        const loading = document.getElementById('loading');
+        loading.classList.remove('d-none');
+ 
+        const resposta = await fetch("https://viacep.com.br/ws/"+cep+"/json/");
+        const dados = await resposta.json();
+
+        loading.classList.add('d-none');
+        document.getElementById('endereco').value = dados.logradouro ? dados.logradouro : '';
+        document.getElementById('bairro').value = dados.bairro ? dados.bairro : '';
+        document.getElementById('cidade').value = dados.localidade ? dados.localidade : '';
+        document.getElementById('sigla_estado').value = dados.uf ? dados.uf : '';
+        if(dados.erro){
+                
+        }
         
         
     } catch (error) {
