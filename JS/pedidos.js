@@ -8,3 +8,11 @@ elemento.addEventListener('keyup',() => {
     })    
 
 })
+
+document.addEventListener('DOMContentLoaded', function() {
+    carregarListagemClientes();
+});
+
+async function carregarListagemClientes(){
+
+} 
