@@ -120,7 +120,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4" class="text-center">Nenhum produto cadastrado ainda.</td>
+                            <td colspan="4" class="text-center">Nenhum cliente cadastrado ainda.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script defer src="./JS/pedidos.js"></script>
 </head>
 <style>
     /* Estilo para o corpo da página, similar ao fundo da imagem */
@@ -48,6 +49,11 @@
     .action-buttons .btn {
         margin-right: 5px;
     }
+
+    .scrollable{
+        max-height: 500px;
+        overflow: auto;
+    }
 </style>
 
 <body>
@@ -56,49 +62,34 @@
             <label for="inputPesquisa" class="form-label">Parâmetro de Pesquisa</label>
             <input
                 type="text"
-                class="form-control"
+                class="form-control mb-3"
                 placeholder="Pesquisar Produto..."
                 id="inputPesquisa">
+            <div class="scrollable">
 
-            <!-- <div class="table-responsive">
+            </div>
+            <div class="table-responsive">
+                <caption>Selecione um Cliente</caption>
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
                             <th scope="col">Nome</th>
                             <th scope="col">Tipo</th>
-                            <th scope="col" class="text-center">Quantidade de Pedidos</th>
-                            <th scope="col" class="text-center">Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php if (count($clientes) > 0): ?>
-                            <?php foreach ($clientes as $cliente): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($cliente['nome']) ?></td>
-                                    <td><?= (($cliente['tipo'] == 'J') ? 'Jurídica' : 'Física') ?></td>
-                                    <td class="text-center">0</td>
-                                    <td class="text-center action-buttons">
-                                        <form action="clientes.php" method="POST">
-                                            <input type="hidden" name="id" value="<?= htmlspecialchars($cliente['id_cliente']) ?>">
-                                            <input type="submit" value="Editar" class="btn btn-sm btn-outline-primary">
-                                        </form>
-                                        <form action="Model/Clientes/ExcluirCliente.php" method="POST">
-                                            <input type="hidden" name="id" value="<?= htmlspecialchars($cliente['id_cliente']) ?>">
-                                            <input type="submit" value="Excluir" class="btn btn-sm btn-outline-danger mt-1" onclick="return confirm('Deseja Realmente Excluir o cliente <?= $cliente['nome'] ?>' )">
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="4" class="text-center">Nenhum produto cadastrado ainda.</td>
-                            </tr>
-                        <?php endif; ?>
+                    <tbody id="tbodyClientes">
+                        <tr>
+                            <td>Nome Clientes</td>
+                            <td>Jurídica</td>
+                        </tr>
                     </tbody>
                 </table>
-            </div> -->
-
+            </div>
+            
         </div>
+
+    </div>
+
     </div>
 
 </body>
